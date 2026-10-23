@@ -1,0 +1,41 @@
++ git log --oneline -3 feature/source-10
+bf0e1f5 D3: другое изменение
+ce27b7c D2: нужное исправление
+df82bef D1: независимое изменение
+++ git rev-parse feature/source-10~1
++ lab10_d2=ce27b7c69a8e05737a87e8b1d54498a5d8f5da98
++ echo 'Исходный D2: ce27b7c69a8e05737a87e8b1d54498a5d8f5da98'
+Исходный D2: ce27b7c69a8e05737a87e8b1d54498a5d8f5da98
++ git cherry-pick -x ce27b7c69a8e05737a87e8b1d54498a5d8f5da98
+[feature/task-10 959f331] D2: нужное исправление
+ Author: Учебный автор <training@example.invalid>
+ Date: Fri Oct 23 09:35:57 2026 +0700
+ 1 file changed, 1 insertion(+)
+ create mode 100644 portable-fix.txt
++ git log -1 --format=full
+commit 959f3319a073608f9c42f65cd5c24a9940b4087f
+Author: Учебный автор <training@example.invalid>
+Commit: Муравьева Дарья <muravievadara272@gmail.com>
+
+    D2: нужное исправление
+    
+    (cherry picked from commit ce27b7c69a8e05737a87e8b1d54498a5d8f5da98)
+++ git rev-parse HEAD
++ test 959f3319a073608f9c42f65cd5c24a9940b4087f '!=' ce27b7c69a8e05737a87e8b1d54498a5d8f5da98
++ echo 'Новый SHA отличается: OK'
+Новый SHA отличается: OK
++ git show ce27b7c69a8e05737a87e8b1d54498a5d8f5da98
++ git patch-id --stable
+22971db0ebfcde0edc15070d5ca838dfe70fb4a7 ce27b7c69a8e05737a87e8b1d54498a5d8f5da98
++ git show HEAD
++ git patch-id --stable
+22971db0ebfcde0edc15070d5ca838dfe70fb4a7 959f3319a073608f9c42f65cd5c24a9940b4087f
++ cat portable-fix.txt
+Переносимое исправление
++ test '!' -e unrelated-a.txt
++ test '!' -e unrelated-b.txt
++ echo 'Файлы D1 и D3 отсутствуют: OK'
+Файлы D1 и D3 отсутствуют: OK
++ git push
+To https://github.com/DariMur/git-practice.git
+   056c7f1..959f331  feature/task-10 -> feature/task-10
