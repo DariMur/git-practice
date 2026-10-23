@@ -1,0 +1,196 @@
++ git blame calc.py
+^22842f7 (Учебный автор 2026-10-23 09:35:56 +0700 1) STUDENT_NUMBER = 1
+^22842f7 (Учебный автор 2026-10-23 09:35:56 +0700 2) 
+^22842f7 (Учебный автор 2026-10-23 09:35:56 +0700 3) def total(n):
+db939a53 (Учебный автор 2026-10-23 09:35:56 +0700 4)     return 2 + n + STUDENT_NUMBER
++ git bisect start
+status: waiting for both good and bad commits
++ git bisect bad lab-start
+status: waiting for good commit(s), bad commit known
++ git bisect good history-good
+Bisecting: 5 revisions left to test after this (roughly 3 steps)
+[600a4844e390789b1ca5e238772228f1cf770aaa] История 06: изменение проекта
++ python3 check.py
+Traceback (most recent call last):
+  File "/home/dasha/git-practice/check.py", line 5, in <module>
+    assert ns['total'](n) == 2 * n + ns['STUDENT_NUMBER']
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError
++ git bisect bad
+Bisecting: 2 revisions left to test after this (roughly 2 steps)
+[ce9b88b1b30cc0de9d4bf54349a4657bbed6f2c7] История 03: изменение проекта
++ python3 check.py
+OK
++ git bisect good
+Bisecting: 0 revisions left to test after this (roughly 1 step)
+[5c18d437ab5c9484cd9e68f61097064b8f213e31] История 05: изменение проекта
++ python3 check.py
+Traceback (most recent call last):
+  File "/home/dasha/git-practice/check.py", line 5, in <module>
+    assert ns['total'](n) == 2 * n + ns['STUDENT_NUMBER']
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError
++ git bisect bad
+Bisecting: 0 revisions left to test after this (roughly 0 steps)
+[db939a5310d337cb6483a2596f85cc8999ab1a90] История 04: изменение проекта
++ python3 check.py
+Traceback (most recent call last):
+  File "/home/dasha/git-practice/check.py", line 5, in <module>
+    assert ns['total'](n) == 2 * n + ns['STUDENT_NUMBER']
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError
++ git bisect bad
+db939a5310d337cb6483a2596f85cc8999ab1a90 is the first bad commit
+commit db939a5310d337cb6483a2596f85cc8999ab1a90
+Author: Учебный автор <training@example.invalid>
+Date:   Fri Oct 23 09:35:56 2026 +0700
+
+    История 04: изменение проекта
+
+ calc.py      | 2 +-
+ progress.txt | 2 +-
+ 2 files changed, 2 insertions(+), 2 deletions(-)
++ git bisect log
+git bisect start
+# status: waiting for both good and bad commits
+# bad: [6c859d3d1de47c275f49db7c2c95f9052c045c11] История 12: изменение проекта
+git bisect bad 6c859d3d1de47c275f49db7c2c95f9052c045c11
+# status: waiting for good commit(s), bad commit known
+# good: [22842f7ee567f79d20809fe67a9560bf534b65eb] Начальная рабочая версия
+git bisect good 22842f7ee567f79d20809fe67a9560bf534b65eb
+# bad: [600a4844e390789b1ca5e238772228f1cf770aaa] История 06: изменение проекта
+git bisect bad 600a4844e390789b1ca5e238772228f1cf770aaa
+# good: [ce9b88b1b30cc0de9d4bf54349a4657bbed6f2c7] История 03: изменение проекта
+git bisect good ce9b88b1b30cc0de9d4bf54349a4657bbed6f2c7
+# bad: [5c18d437ab5c9484cd9e68f61097064b8f213e31] История 05: изменение проекта
+git bisect bad 5c18d437ab5c9484cd9e68f61097064b8f213e31
+# bad: [db939a5310d337cb6483a2596f85cc8999ab1a90] История 04: изменение проекта
+git bisect bad db939a5310d337cb6483a2596f85cc8999ab1a90
+# first bad commit: [db939a5310d337cb6483a2596f85cc8999ab1a90] История 04: изменение проекта
++ git rev-parse refs/bisect/bad
+db939a5310d337cb6483a2596f85cc8999ab1a90
++ git tag evidence/11-manual-bad refs/bisect/bad
++ git bisect reset
+Previous HEAD position was db939a5 История 04: изменение проекта
+Switched to branch 'feature/task-11'
+Your branch is up to date with 'origin/feature/task-11'.
++ git bisect start
+status: waiting for both good and bad commits
++ git bisect bad lab-start
+status: waiting for good commit(s), bad commit known
++ git bisect good history-good
+Bisecting: 5 revisions left to test after this (roughly 3 steps)
+[600a4844e390789b1ca5e238772228f1cf770aaa] История 06: изменение проекта
++ git bisect run python3 check.py
+running 'python3' 'check.py'
+Traceback (most recent call last):
+  File "/home/dasha/git-practice/check.py", line 5, in <module>
+    assert ns['total'](n) == 2 * n + ns['STUDENT_NUMBER']
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError
+Bisecting: 2 revisions left to test after this (roughly 2 steps)
+[ce9b88b1b30cc0de9d4bf54349a4657bbed6f2c7] История 03: изменение проекта
+running 'python3' 'check.py'
+OK
+Bisecting: 0 revisions left to test after this (roughly 1 step)
+[5c18d437ab5c9484cd9e68f61097064b8f213e31] История 05: изменение проекта
+running 'python3' 'check.py'
+Traceback (most recent call last):
+  File "/home/dasha/git-practice/check.py", line 5, in <module>
+    assert ns['total'](n) == 2 * n + ns['STUDENT_NUMBER']
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError
+Bisecting: 0 revisions left to test after this (roughly 0 steps)
+[db939a5310d337cb6483a2596f85cc8999ab1a90] История 04: изменение проекта
+running 'python3' 'check.py'
+Traceback (most recent call last):
+  File "/home/dasha/git-practice/check.py", line 5, in <module>
+    assert ns['total'](n) == 2 * n + ns['STUDENT_NUMBER']
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError
+db939a5310d337cb6483a2596f85cc8999ab1a90 is the first bad commit
+commit db939a5310d337cb6483a2596f85cc8999ab1a90
+Author: Учебный автор <training@example.invalid>
+Date:   Fri Oct 23 09:35:56 2026 +0700
+
+    История 04: изменение проекта
+
+ calc.py      | 2 +-
+ progress.txt | 2 +-
+ 2 files changed, 2 insertions(+), 2 deletions(-)
+bisect found first bad commit
++ git bisect log
+git bisect start
+# status: waiting for both good and bad commits
+# bad: [6c859d3d1de47c275f49db7c2c95f9052c045c11] История 12: изменение проекта
+git bisect bad 6c859d3d1de47c275f49db7c2c95f9052c045c11
+# status: waiting for good commit(s), bad commit known
+# good: [22842f7ee567f79d20809fe67a9560bf534b65eb] Начальная рабочая версия
+git bisect good 22842f7ee567f79d20809fe67a9560bf534b65eb
+# bad: [600a4844e390789b1ca5e238772228f1cf770aaa] История 06: изменение проекта
+git bisect bad 600a4844e390789b1ca5e238772228f1cf770aaa
+# good: [ce9b88b1b30cc0de9d4bf54349a4657bbed6f2c7] История 03: изменение проекта
+git bisect good ce9b88b1b30cc0de9d4bf54349a4657bbed6f2c7
+# bad: [5c18d437ab5c9484cd9e68f61097064b8f213e31] История 05: изменение проекта
+git bisect bad 5c18d437ab5c9484cd9e68f61097064b8f213e31
+# bad: [db939a5310d337cb6483a2596f85cc8999ab1a90] История 04: изменение проекта
+git bisect bad db939a5310d337cb6483a2596f85cc8999ab1a90
+# first bad commit: [db939a5310d337cb6483a2596f85cc8999ab1a90] История 04: изменение проекта
++ git rev-parse refs/bisect/bad
+db939a5310d337cb6483a2596f85cc8999ab1a90
++ git tag evidence/11-auto-bad refs/bisect/bad
+++ git rev-parse evidence/11-manual-bad
+++ git rev-parse evidence/11-auto-bad
++ test db939a5310d337cb6483a2596f85cc8999ab1a90 = db939a5310d337cb6483a2596f85cc8999ab1a90
++ echo 'Оба поиска нашли один SHA: OK'
+Оба поиска нашли один SHA: OK
++ git bisect reset
+Previous HEAD position was db939a5 История 04: изменение проекта
+Switched to branch 'feature/task-11'
+Your branch is up to date with 'origin/feature/task-11'.
++ git switch --detach 'evidence/11-auto-bad^'
+HEAD is now at ce9b88b История 03: изменение проекта
++ python3 check.py
+OK
++ echo 'Родитель исправен: OK'
+Родитель исправен: OK
++ git switch --detach evidence/11-auto-bad
+Previous HEAD position was ce9b88b История 03: изменение проекта
+HEAD is now at db939a5 История 04: изменение проекта
++ python3 check.py
+Traceback (most recent call last):
+  File "/home/dasha/git-practice/check.py", line 5, in <module>
+    assert ns['total'](n) == 2 * n + ns['STUDENT_NUMBER']
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError
++ echo 'Найденный коммит сломан: подтверждено'
+Найденный коммит сломан: подтверждено
++ git switch feature/task-11
+Previous HEAD position was db939a5 История 04: изменение проекта
+Switched to branch 'feature/task-11'
+Your branch is up to date with 'origin/feature/task-11'.
++ sed -i 's/return 2 + n + STUDENT_NUMBER/return 2 * n + STUDENT_NUMBER/' calc.py
++ python3 check.py
+OK
++ git diff -- calc.py
+diff --git a/calc.py b/calc.py
+index 423b73d..30cbbbb 100644
+--- a/calc.py
++++ b/calc.py
+@@ -1,4 +1,4 @@
+ STUDENT_NUMBER = 1
+ 
+ def total(n):
+-    return 2 + n + STUDENT_NUMBER
++    return 2 * n + STUDENT_NUMBER
++ git add calc.py
++ git commit -m 'fix: исправить формулу total'
+[feature/task-11 7ab1728] fix: исправить формулу total
+ 1 file changed, 1 insertion(+), 1 deletion(-)
++ git push
+To https://github.com/DariMur/git-practice.git
+   e569eb4..7ab1728  feature/task-11 -> feature/task-11
++ git push origin evidence/11-manual-bad evidence/11-auto-bad
+To https://github.com/DariMur/git-practice.git
+ * [new tag]         evidence/11-manual-bad -> evidence/11-manual-bad
+ * [new tag]         evidence/11-auto-bad -> evidence/11-auto-bad
