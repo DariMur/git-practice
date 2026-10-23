@@ -1,0 +1,85 @@
++ git tag evidence/04-X
++ git show --stat HEAD
+commit 075e36a8b8a2c1ee6b06cc1378308fa84311d046
+Author: Учебный автор <training@example.invalid>
+Date:   Fri Oct 23 09:35:56 2026 +0700
+
+    X: изменить два файла
+
+ message.txt  | 2 +-
+ settings.ini | 2 +-
+ 2 files changed, 2 insertions(+), 2 deletions(-)
++ git revert --no-edit HEAD
+[feature/task-04 00c0009] Revert "X: изменить два файла"
+ Date: Fri Oct 23 20:11:11 2026 +0700
+ 2 files changed, 2 insertions(+), 2 deletions(-)
++ git tag evidence/04-R
++ git push
+To https://github.com/DariMur/git-practice.git
+   075e36a..00c0009  feature/task-04 -> feature/task-04
++ git show HEAD -- settings.ini message.txt
+commit 00c0009b26902c7e541901c1a8546f61de9ca055
+Author: Муравьева Дарья <muravievadara272@gmail.com>
+Date:   Fri Oct 23 20:11:11 2026 +0700
+
+    Revert "X: изменить два файла"
+    
+    This reverts commit 075e36a8b8a2c1ee6b06cc1378308fa84311d046.
+
+diff --git a/message.txt b/message.txt
+index fc88459..739e860 100644
+--- a/message.txt
++++ b/message.txt
+@@ -1 +1 @@
+-Временная правка X
++Сообщение: исходная версия
+diff --git a/settings.ini b/settings.ini
+index 1af44eb..734de24 100644
+--- a/settings.ini
++++ b/settings.ini
+@@ -1 +1 @@
+-mode=temporary
++mode=training
++ printf 'mode=custom\n'
++ printf 'Сообщение: новая правка Y\n'
++ git add settings.ini message.txt
++ git commit -m 'Y: изменить настройки и сообщение'
+[feature/task-04 6e8c97f] Y: изменить настройки и сообщение
+ 2 files changed, 2 insertions(+), 2 deletions(-)
++ git tag evidence/04-Y
++ git restore '--source=HEAD^' -- settings.ini
++ git diff -- settings.ini message.txt
+diff --git a/settings.ini b/settings.ini
+index b9b06c0..734de24 100644
+--- a/settings.ini
++++ b/settings.ini
+@@ -1 +1 @@
+-mode=custom
++mode=training
++ git add settings.ini
++ git commit -m 'Z: восстановить только settings.ini'
+[feature/task-04 a908781] Z: восстановить только settings.ini
+ 1 file changed, 1 insertion(+), 1 deletion(-)
++ git tag evidence/04-Z
++ git show --stat HEAD
+commit a90878165459611b8ccd57192cdd9b0b9c2c6ca0
+Author: Муравьева Дарья <muravievadara272@gmail.com>
+Date:   Fri Oct 23 20:11:13 2026 +0700
+
+    Z: восстановить только settings.ini
+
+ settings.ini | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
++ cat settings.ini message.txt
+mode=training
+Сообщение: новая правка Y
++ git diff evidence/04-Y HEAD -- message.txt
++ git push
+To https://github.com/DariMur/git-practice.git
+   00c0009..a908781  feature/task-04 -> feature/task-04
++ git push origin evidence/04-X evidence/04-R evidence/04-Y evidence/04-Z
+To https://github.com/DariMur/git-practice.git
+ * [new tag]         evidence/04-X -> evidence/04-X
+ * [new tag]         evidence/04-R -> evidence/04-R
+ * [new tag]         evidence/04-Y -> evidence/04-Y
+ * [new tag]         evidence/04-Z -> evidence/04-Z
