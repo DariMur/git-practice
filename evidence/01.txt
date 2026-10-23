@@ -1,0 +1,28 @@
+=== reset --soft ===
+A: 11d8a8c
+B: 048411b
+Тег до отката: evidence/01-soft-before
+
+Команда: git reset --soft 11d8a8c
+Вывод: отсутствует.
+
+Команда: git status --short
+M  reset-demo.txt
+
+Команда: git diff --cached
+diff --git a/reset-demo.txt b/reset-demo.txt
+index f70f10e..223b783 100644
+--- a/reset-demo.txt
++++ b/reset-demo.txt
+@@ -1 +1 @@
+-A
++B
+
+Команда: git diff
+Вывод: отсутствует.
+
+Команда: cat reset-demo.txt
+B
+
+Вывод: ветка указывает на A. Изменения из B сохранены
+в индексе и рабочем файле, готовы к новому коммиту.
