@@ -1,0 +1,82 @@
+=== reset --soft ===
+A: 11d8a8c
+B: 048411b
+Тег до отката: evidence/01-soft-before
+
+Команда: git reset --soft 11d8a8c
+Вывод: отсутствует.
+
+Команда: git status --short
+M  reset-demo.txt
+
+Команда: git diff --cached
+diff --git a/reset-demo.txt b/reset-demo.txt
+index f70f10e..223b783 100644
+--- a/reset-demo.txt
++++ b/reset-demo.txt
+@@ -1 +1 @@
+-A
++B
+
+Команда: git diff
+Вывод: отсутствует.
+
+Команда: cat reset-demo.txt
+B
+
+Вывод: ветка указывает на A. Изменения из B сохранены
+в индексе и рабочем файле, готовы к новому коммиту.
+
+=== reset --mixed ===
+A: 231720e
+B: 762dca5
+Тег до отката: evidence/01-mixed-before
+
+Команда: git reset --mixed evidence/01-mixed-A
+Unstaged changes after reset:
+M       reset-demo.txt
+
+Команда: git status --short
+ M reset-demo.txt
+
+Команда: git diff --cached
+Вывод: отсутствует.
+
+Команда: git diff
+diff --git a/reset-demo.txt b/reset-demo.txt
+index a75c508..45df567 100644
+--- a/reset-demo.txt
++++ b/reset-demo.txt
+@@ -1 +1 @@
+-A mixed
++B mixed
+
+Команда: cat reset-demo.txt
+B mixed
+
+Вывод: ветка и индекс вернулись к A.
+В рабочем файле осталось B. Для нового коммита нужен git add.
+
+=== reset --hard ===
+A: 5fd2479
+B: см. тег evidence/01-hard-before
+
+Команда: git reset --hard evidence/01-hard-A
+HEAD is now at 5fd2479 reset hard: состояние A
+
+Команда: git status --short
+Вывод: отсутствует.
+
+Команда: git diff --cached
+Вывод: отсутствует.
+
+Команда: git diff
+Вывод: отсутствует.
+
+Команда: cat reset-demo.txt
+A hard
+
+Вывод: ветка, индекс и рабочий файл вернулись к A.
+Изменение B отсутствует в рабочем файле.
+
+SHA B для hard: 8372b7debe8060e7d402724d6259713941d5c6c5
