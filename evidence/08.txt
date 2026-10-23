@@ -1,0 +1,73 @@
++ printf 'Сообщение: незавершённая работа\n'
++ git add message.txt
++ printf 'mode=unfinished\n'
++ printf 'Черновик\n'
++ git status --short
+M  message.txt
+ M settings.ini
+?? draft.txt
++ git stash push -u -m 'unfinished work'
+Saved working directory and index state On feature/task-08: unfinished work
++ git status --short
++ git stash list
+stash@{0}: On feature/task-08: unfinished work
++ printf 'Срочное исправление\n'
++ git add hotfix.txt
++ git commit -m 'hotfix: добавить срочное исправление'
+[feature/task-08 f0ad05e] hotfix: добавить срочное исправление
+ 1 file changed, 1 insertion(+)
+ create mode 100644 hotfix.txt
++ git stash apply --index
+On branch feature/task-08
+Your branch is ahead of 'origin/feature/task-08' by 1 commit.
+  (use "git push" to publish your local commits)
+
+Changes to be committed:
+  (use "git restore --staged <file>..." to unstage)
+	modified:   message.txt
+
+Changes not staged for commit:
+  (use "git add <file>..." to update what will be committed)
+  (use "git restore <file>..." to discard changes in working directory)
+	modified:   settings.ini
+
+Untracked files:
+  (use "git add <file>..." to include in what will be committed)
+	draft.txt
+
++ git status --short
+M  message.txt
+ M settings.ini
+?? draft.txt
++ git diff --cached
+diff --git a/message.txt b/message.txt
+index a2f3db6..dedb296 100644
+--- a/message.txt
++++ b/message.txt
+@@ -1 +1 @@
+-База для staged изменения
++Сообщение: незавершённая работа
++ git diff
+diff --git a/settings.ini b/settings.ini
+index 3f81a5b..66c5108 100644
+--- a/settings.ini
++++ b/settings.ini
+@@ -1 +1 @@
+-mode=base
++mode=unfinished
++ cat draft.txt
+Черновик
++ git stash list
+stash@{0}: On feature/task-08: unfinished work
++ git stash drop
+Dropped refs/stash@{0} (6276310db679b1ae2d7923d1aa630283c56630a4)
++ git stash list
++ git add message.txt settings.ini draft.txt
++ git commit -m 'task 08: завершить восстановленную работу'
+[feature/task-08 b931e2c] task 08: завершить восстановленную работу
+ 3 files changed, 3 insertions(+), 2 deletions(-)
+ create mode 100644 draft.txt
++ git status --short
++ git push
+To https://github.com/DariMur/git-practice.git
+   4abf144..b931e2c  feature/task-08 -> feature/task-08
