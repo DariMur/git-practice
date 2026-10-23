@@ -1,0 +1,60 @@
+++ git config user.name
++ lab_name='Муравьева Дарья'
+++ git config user.email
++ lab_email=muravievadara272@gmail.com
++ git clone --single-branch --branch feature/task-05 https://github.com/DariMur/git-practice.git /home/dasha/git-practice-05-A
+Cloning into '/home/dasha/git-practice-05-A'...
++ git clone --single-branch --branch feature/task-05 https://github.com/DariMur/git-practice.git /home/dasha/git-practice-05-B
+Cloning into '/home/dasha/git-practice-05-B'...
++ for lab_clone in "$HOME/git-practice-05-A" "$HOME/git-practice-05-B"
++ git -C /home/dasha/git-practice-05-A config user.name 'Муравьева Дарья'
++ git -C /home/dasha/git-practice-05-A config user.email muravievadara272@gmail.com
++ for lab_clone in "$HOME/git-practice-05-A" "$HOME/git-practice-05-B"
++ git -C /home/dasha/git-practice-05-B config user.name 'Муравьева Дарья'
++ git -C /home/dasha/git-practice-05-B config user.email muravievadara272@gmail.com
++ cd /home/dasha/git-practice-05-A
++ printf 'Локальное изменение L\n'
++ git add local.txt
++ git commit -m 'L: добавить local.txt'
+[feature/task-05 6ed7bb9] L: добавить local.txt
+ 1 file changed, 1 insertion(+)
+ create mode 100644 local.txt
++ git log -1 --oneline
+6ed7bb9 L: добавить local.txt
++ cd /home/dasha/git-practice-05-B
++ printf 'Удалённое изменение R\n'
++ git add remote.txt
++ git commit -m 'R: добавить remote.txt'
+[feature/task-05 3787c11] R: добавить remote.txt
+ 1 file changed, 1 insertion(+)
+ create mode 100644 remote.txt
++ git log -1 --oneline
+3787c11 R: добавить remote.txt
++ git push
+To https://github.com/DariMur/git-practice.git
+   74260a8..3787c11  feature/task-05 -> feature/task-05
++ cd /home/dasha/git-practice-05-A
++ GIT_MERGE_AUTOEDIT=no
++ git -c pull.ff=true pull --no-rebase origin feature/task-05
+From https://github.com/DariMur/git-practice
+ * branch            feature/task-05 -> FETCH_HEAD
+   74260a8..3787c11  feature/task-05 -> origin/feature/task-05
+Merge made by the 'ort' strategy.
+ remote.txt | 1 +
+ 1 file changed, 1 insertion(+)
+ create mode 100644 remote.txt
++ git log --graph --oneline -4
+*   b1efdae Merge branch 'feature/task-05' of https://github.com/DariMur/git-practice into feature/task-05
+|\  
+| * 3787c11 R: добавить remote.txt
+* | 6ed7bb9 L: добавить local.txt
+|/  
+* 74260a8 task 05: форма и инструкция
++ git rev-list --parents -n 1 HEAD
+b1efdae1a70b6c85ddbf0725df1e560ccb6a5314 6ed7bb99c71ce56397b5f5e3722a8716562a8cbf 3787c11d6e6ee284d4442862449cb19f5a1a7713
++ cat local.txt remote.txt
+Локальное изменение L
+Удалённое изменение R
++ git push
+To https://github.com/DariMur/git-practice.git
+   3787c11..b1efdae  feature/task-05 -> feature/task-05
