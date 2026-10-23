@@ -1,0 +1,47 @@
++ printf 'Восстановленный файл\n'
++ git add recovered.txt
++ git commit -m 'LOST: добавить recovered.txt'
+[feature/task-09 e568fe3] LOST: добавить recovered.txt
+ 1 file changed, 1 insertion(+)
+ create mode 100644 recovered.txt
+++ git rev-parse HEAD
++ lab09_original=e568fe3cb14c2e5fbe9cb0eecc542fa86d073540
++ echo 'Исходный LOST: e568fe3cb14c2e5fbe9cb0eecc542fa86d073540'
+Исходный LOST: e568fe3cb14c2e5fbe9cb0eecc542fa86d073540
++ git reset --hard HEAD~1
+HEAD is now at d30096b task 09: форма и инструкция
++ git status --short
+?? evidence/
++ test '!' -e recovered.txt
++ echo 'Файл исчез: OK'
+Файл исчез: OK
++ git --no-pager reflog -8
+d30096b HEAD@{0}: reset: moving to HEAD~1
+e568fe3 HEAD@{1}: commit: LOST: добавить recovered.txt
+d30096b HEAD@{2}: checkout: moving from feature/task-08 to feature/task-09
+708a7d8 HEAD@{3}: commit: task 08: сохранить отчёт и протокол
+b931e2c HEAD@{4}: commit: task 08: завершить восстановленную работу
+f0ad05e HEAD@{5}: reset: moving to HEAD
+f0ad05e HEAD@{6}: commit: hotfix: добавить срочное исправление
+4abf144 HEAD@{7}: reset: moving to HEAD
+++ git reflog '--format=%H %gs'
+++ awk '$2 == "commit:" && $3 == "LOST:" {print $1; exit}'
++ lab09_found=e568fe3cb14c2e5fbe9cb0eecc542fa86d073540
++ test -n e568fe3cb14c2e5fbe9cb0eecc542fa86d073540
++ echo 'Найден через reflog: e568fe3cb14c2e5fbe9cb0eecc542fa86d073540'
+Найден через reflog: e568fe3cb14c2e5fbe9cb0eecc542fa86d073540
++ git reset --hard e568fe3cb14c2e5fbe9cb0eecc542fa86d073540
+HEAD is now at e568fe3 LOST: добавить recovered.txt
+++ git rev-parse HEAD
++ test e568fe3cb14c2e5fbe9cb0eecc542fa86d073540 = e568fe3cb14c2e5fbe9cb0eecc542fa86d073540
++ echo 'Восстановлен тот же SHA: OK'
+Восстановлен тот же SHA: OK
++ cat recovered.txt
+Восстановленный файл
++ git push
+To https://github.com/DariMur/git-practice.git
+   d30096b..e568fe3  feature/task-09 -> feature/task-09
++ git ls-remote origin refs/heads/feature/task-09
+e568fe3cb14c2e5fbe9cb0eecc542fa86d073540	refs/heads/feature/task-09
++ git rev-parse HEAD
+e568fe3cb14c2e5fbe9cb0eecc542fa86d073540
