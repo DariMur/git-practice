@@ -1,0 +1,50 @@
++ cat
++ mkdir -p build __pycache__
++ printf 'DEMO=value\n'
++ printf 'DEMO=\n'
++ printf 'Результат сборки\n'
++ touch build/.gitkeep
++ printf 'Учебный файл\n'
++ git ls-files debug.log
+debug.log
++ git check-ignore -v .env build/output.txt __pycache__/demo.pyc
+.gitignore:2:.env	.env
+.gitignore:4:build/output.txt	build/output.txt
+.gitignore:3:__pycache__/	__pycache__/demo.pyc
++ git status --ignored --short
+ M .gitignore
+?? .env.example
+?? build/
+?? evidence/
+!! .env
+!! __pycache__/
+!! build/output.txt
++ git rm --cached debug.log
+rm 'debug.log'
++ test -f debug.log
++ echo 'debug.log остался на диске: OK'
+debug.log остался на диске: OK
++ git check-ignore -v debug.log
+.gitignore:1:*.log	debug.log
++ git ls-files debug.log
++ git add .gitignore .env.example build/.gitkeep
++ git commit -m 'task 12: настроить игнорирование файлов'
+[feature/task-12 c71f581] task 12: настроить игнорирование файлов
+ 4 files changed, 5 insertions(+), 1 deletion(-)
+ create mode 100644 .env.example
+ create mode 100644 build/.gitkeep
+ delete mode 100644 debug.log
++ git ls-files .env.example build/.gitkeep
+.env.example
+build/.gitkeep
++ git status --ignored --short
+?? evidence/
+!! .env
+!! __pycache__/
+!! build/output.txt
+!! debug.log
++ git show 'HEAD^:debug.log'
+Учебный журнал
++ git push
+To https://github.com/DariMur/git-practice.git
+   a413338..c71f581  feature/task-12 -> feature/task-12
