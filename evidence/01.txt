@@ -56,3 +56,27 @@ B mixed
 
 Вывод: ветка и индекс вернулись к A.
 В рабочем файле осталось B. Для нового коммита нужен git add.
+
+=== reset --hard ===
+A: 5fd2479
+B: см. тег evidence/01-hard-before
+
+Команда: git reset --hard evidence/01-hard-A
+HEAD is now at 5fd2479 reset hard: состояние A
+
+Команда: git status --short
+Вывод: отсутствует.
+
+Команда: git diff --cached
+Вывод: отсутствует.
+
+Команда: git diff
+Вывод: отсутствует.
+
+Команда: cat reset-demo.txt
+A hard
+
+Вывод: ветка, индекс и рабочий файл вернулись к A.
+Изменение B отсутствует в рабочем файле.
+
+SHA B для hard: 8372b7debe8060e7d402724d6259713941d5c6c5
