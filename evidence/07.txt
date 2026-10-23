@@ -1,0 +1,43 @@
++ cat VERSION
+1.0.0
++ git log -1 --oneline
+54cf123 release 07: версия 1.0.0
++ git tag -a v1.0.0 -m 'Учебный выпуск 1.0.0'
++ printf '1.1.0-rc1\n'
++ git add VERSION
++ git commit -m 'release: версия 1.1.0-rc1'
+[feature/task-07 92cabb7] release: версия 1.1.0-rc1
+ 1 file changed, 1 insertion(+), 1 deletion(-)
++ git tag v1.1.0-rc1
++ git cat-file -t v1.0.0
+tag
++ git cat-file -t v1.1.0-rc1
+commit
++ git rev-parse 'v1.0.0^{commit}' 'v1.1.0-rc1^{commit}'
+54cf123424892c9b5f1f248e63083cb6e02d474e
+92cabb7fe457fb9cd00e50644bd7428a474de3be
++ git show --no-patch v1.0.0
+tag v1.0.0
+Tagger: Муравьева Дарья <muravievadara272@gmail.com>
+Date:   Fri Oct 23 20:22:01 2026 +0700
+
+Учебный выпуск 1.0.0
+
+commit 54cf123424892c9b5f1f248e63083cb6e02d474e
+Author: Учебный автор <training@example.invalid>
+Date:   Fri Oct 23 09:35:56 2026 +0700
+
+    release 07: версия 1.0.0
++ git show --no-patch v1.1.0-rc1
+commit 92cabb7fe457fb9cd00e50644bd7428a474de3be
+Author: Муравьева Дарья <muravievadara272@gmail.com>
+Date:   Fri Oct 23 20:22:01 2026 +0700
+
+    release: версия 1.1.0-rc1
++ git push
+To https://github.com/DariMur/git-practice.git
+   54cf123..92cabb7  feature/task-07 -> feature/task-07
++ git push origin v1.0.0 v1.1.0-rc1
+To https://github.com/DariMur/git-practice.git
+ * [new tag]         v1.0.0 -> v1.0.0
+ * [new tag]         v1.1.0-rc1 -> v1.1.0-rc1
