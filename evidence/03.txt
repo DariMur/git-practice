@@ -1,0 +1,51 @@
++ git log --oneline -4
+1754a1e tmp
+e5dafd5 story: исправить опечатку
+f9a22a9 story: добавить строку
+ff3c69d wip
++ git -c core.pager=cat show --format=fuller --stat HEAD
+commit 1754a1e0d02b068a9486b187a39ef1bd6efd4fb9
+Author:     Учебный автор <training@example.invalid>
+AuthorDate: Fri Oct 23 09:35:56 2026 +0700
+Commit:     Учебный автор <training@example.invalid>
+CommitDate: Fri Oct 23 09:35:56 2026 +0700
+
+    tmp
+
+ usage.txt | 1 +
+ 1 file changed, 1 insertion(+)
++ git commit --amend -m 'docs: добавить инструкцию чтения story.txt'
+[feature/task-03 54ebc79] docs: добавить инструкцию чтения story.txt
+ Author: Учебный автор <training@example.invalid>
+ Date: Fri Oct 23 09:35:56 2026 +0700
+ 1 file changed, 1 insertion(+)
+ create mode 100644 usage.txt
++ git push --force-with-lease origin feature/task-03
+To https://github.com/DariMur/git-practice.git
+ + 1754a1e...54ebc79 feature/task-03 -> feature/task-03 (forced update)
++ git tag evidence/03-before-rebase
++ git push origin evidence/03-before-amend evidence/03-before-rebase
+To https://github.com/DariMur/git-practice.git
+ * [new tag]         evidence/03-before-amend -> evidence/03-before-amend
+ * [new tag]         evidence/03-before-rebase -> evidence/03-before-rebase
++ printf '\nПлан выполненного rebase:\n'
+
+План выполненного rebase:
++ printf '%s\n' 'reword ff3c69d wip' 'pick f9a22a9 story: добавить строку' 'squash e5dafd5 story: исправить опечатку' 'pick 54ebc79 docs: добавить инструкцию чтения story.txt'
+reword ff3c69d wip
+pick f9a22a9 story: добавить строку
+squash e5dafd5 story: исправить опечатку
+pick 54ebc79 docs: добавить инструкцию чтения story.txt
++ git log --oneline -3
+77f17a9 docs: добавить инструкцию чтения story.txt
+14081a4 story: добавить строку
+1c7e3e1 story: создать файл истории
++ git rev-parse 'evidence/03-before-amend^{tree}' 'HEAD^{tree}'
+f23c10437c3718c40fd80ecbc1636e4550d6c206
+f23c10437c3718c40fd80ecbc1636e4550d6c206
++ git diff --exit-code evidence/03-before-amend HEAD
++ echo 'Содержимое файлов совпадает: OK'
+Содержимое файлов совпадает: OK
++ git push --force-with-lease origin feature/task-03
+To https://github.com/DariMur/git-practice.git
+ + 54ebc79...77f17a9 feature/task-03 -> feature/task-03 (forced update)
