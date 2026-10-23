@@ -1,0 +1,61 @@
+++ git config user.name
++ lab_name='Муравьева Дарья'
+++ git config user.email
++ lab_email=muravievadara272@gmail.com
++ git clone --single-branch --branch feature/task-06 https://github.com/DariMur/git-practice.git /home/dasha/git-practice-06-A
+Cloning into '/home/dasha/git-practice-06-A'...
++ git clone --single-branch --branch feature/task-06 https://github.com/DariMur/git-practice.git /home/dasha/git-practice-06-B
+Cloning into '/home/dasha/git-practice-06-B'...
++ for lab_clone in "$HOME/git-practice-06-A" "$HOME/git-practice-06-B"
++ git -C /home/dasha/git-practice-06-A config user.name 'Муравьева Дарья'
++ git -C /home/dasha/git-practice-06-A config user.email muravievadara272@gmail.com
++ for lab_clone in "$HOME/git-practice-06-A" "$HOME/git-practice-06-B"
++ git -C /home/dasha/git-practice-06-B config user.name 'Муравьева Дарья'
++ git -C /home/dasha/git-practice-06-B config user.email muravievadara272@gmail.com
++ cd /home/dasha/git-practice-06-A
++ printf 'Локальное изменение L\n'
++ git add local.txt
++ git commit -m 'L: добавить local.txt'
+[feature/task-06 079f819] L: добавить local.txt
+ 1 file changed, 1 insertion(+)
+ create mode 100644 local.txt
+++ git rev-parse HEAD
++ lab_old_L=079f8198ad0b26a3014cda1d38134210acc9fa4b
++ echo 'SHA L до rebase: 079f8198ad0b26a3014cda1d38134210acc9fa4b'
+SHA L до rebase: 079f8198ad0b26a3014cda1d38134210acc9fa4b
++ cd /home/dasha/git-practice-06-B
++ printf 'Удалённое изменение R\n'
++ git add remote.txt
++ git commit -m 'R: добавить remote.txt'
+[feature/task-06 c84bd29] R: добавить remote.txt
+ 1 file changed, 1 insertion(+)
+ create mode 100644 remote.txt
++ git log -1 --oneline
+c84bd29 R: добавить remote.txt
++ git push
+To https://github.com/DariMur/git-practice.git
+   0fb66ed..c84bd29  feature/task-06 -> feature/task-06
++ cd /home/dasha/git-practice-06-A
++ git -c pull.ff=true pull --rebase origin feature/task-06
+From https://github.com/DariMur/git-practice
+ * branch            feature/task-06 -> FETCH_HEAD
+   0fb66ed..c84bd29  feature/task-06 -> origin/feature/task-06
+Rebasing (1/1)Successfully rebased and updated refs/heads/feature/task-06.
++ git log --graph --oneline -3
+* 739838a L: добавить local.txt
+* c84bd29 R: добавить remote.txt
+* 0fb66ed task 06: форма и инструкция
+++ git rev-parse HEAD
++ echo 'SHA L после rebase: 739838a17832b7c5ee2f442ee88c0f6b58a05f8e'
+SHA L после rebase: 739838a17832b7c5ee2f442ee88c0f6b58a05f8e
+++ git rev-parse HEAD
++ test 079f8198ad0b26a3014cda1d38134210acc9fa4b '!=' 739838a17832b7c5ee2f442ee88c0f6b58a05f8e
++ echo 'SHA L изменился: OK'
+SHA L изменился: OK
++ git rev-list --merges origin/feature/task-06..HEAD
++ cat local.txt remote.txt
+Локальное изменение L
+Удалённое изменение R
++ git push
+To https://github.com/DariMur/git-practice.git
+   c84bd29..739838a  feature/task-06 -> feature/task-06
